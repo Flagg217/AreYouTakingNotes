@@ -2,21 +2,22 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const path = require('path');
-const uuid = require('uuid');
+const { v4: uuid } = require('uuid');
 
-router.get('/notes', (req, res) => {
+router.get('/notes', (_req, res) => {
     try {
-        const notesData = fs.readFileSync(path.join(__dirname, '../../db/db.json'), 'utf8');
+        const notesData = fs.readFileSync(path.join(__dirname, '../../db/db.json'));
         const notes = JSON.parse(notesData);
-        res.json(JSON.parse(notes));
+        res.json(notes);
     } catch (err) {
         console.log(err);
+        res.status(500).json(err);
     }
 });
 
 router.post('/notes', (req, res) => {
     try {
-        const notesData = fs.readFileSync(path.join(__dirname, '../../db/db.json'), 'utf8');
+        const notesData = fs.readFileSync(path.join(__dirname, '../../db/db.json'));
         const notes = JSON.parse(notesData);
         const newNote = {
             title: req.body.title,
@@ -35,7 +36,7 @@ router.post('/notes', (req, res) => {
 
 router.delete('/notes/:id', (req, res) => {
     try {
-        const notesData = fs.readFileSync(path.join(__dirname, '../../db/db.json'), 'utf8');
+        const notesData = fs.readFileSync(path.join(__dirname, '../../db/db.json'));
         const notes = JSON.parse(notesData);
         const filteredNotes = notes.filter(note => note.id !== req.params.id);
         fs.writeFileSync(path.join(__dirname, '../../db/db.json'), JSON.stringify(filteredNotes));
