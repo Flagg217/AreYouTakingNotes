@@ -13,3 +13,19 @@ app.use(express.static(path.join(__dirname, public)));
 
 app.use('/api', apiRouter);
 app.use('/html', htmlRouter);
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'routes', 'index.html'));
+});
+
+app.get('/html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'routes', 'notes.html'));
+});
+
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'routes', 'notes.html'));
+});
+
+app.listen(PORT, () => {
+    console.log(`Server is listening on PORT: ${PORT}`);
+});
