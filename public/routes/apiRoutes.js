@@ -25,7 +25,7 @@ router.post('/notes', (req, res) => {
             id: uuid.v4()
         };
         notes.push(newNote);
-        fs.writeFileSync(path.join(__dirname, '../../db/db.json'), JSON.stringify(notes));
+        fs.writeFileSync(path.join(__dirname, '../../db/db.json'), JSON.stringify(notes, null, 2));
 
         res.json({ msg: 'Note added successfully', notes: newNote });
         } catch (err) {
