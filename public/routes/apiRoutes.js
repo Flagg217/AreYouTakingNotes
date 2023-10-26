@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const path = require('path');
-const { v4: uuid } = require('uuid');
+const uuid = require('uuid');
 
 router.get('/notes', (_req, res) => {
     try {
